@@ -70,13 +70,31 @@
   /* ---------- NAV ---------- */
   nav{
     position:fixed; top:0; left:0; right:0; z-index:50;
-    display:flex; align-items:center; justify-content:space-between;
     padding:16px var(--pad);
-    background:rgba(7,8,12,.55);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--line);
+    display:flex; flex-direction:column; align-items:center;
   }
+  .nav-inner{
+    width:100%; display:flex; align-items:center; justify-content:space-between;
+    padding:0; background:transparent; border:1px solid transparent; border-radius:0;
+    transition:max-width .35s cubic-bezier(.2,.7,.2,1), padding .35s cubic-bezier(.2,.7,.2,1),
+      background .35s, border-color .35s, border-radius .35s, box-shadow .35s;
+  }
+  nav.pill{padding-top:12px}
+  nav.pill .nav-inner{
+    max-width:640px; padding:12px 22px;
+    background:rgba(12,14,21,.62);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border-color:var(--line); border-radius:999px;
+    box-shadow:0 12px 32px rgba(0,0,0,.35);
+  }
+  @media (prefers-reduced-motion: reduce){.nav-inner{transition:none}}
+  .nav-progress{
+    position:relative; width:100%; max-width:0; height:2px; margin-top:0;
+    border-radius:2px; overflow:hidden; opacity:0; transition:opacity .3s, max-width .35s;
+  }
+  nav.pill .nav-progress{max-width:640px; opacity:1; margin-top:6px}
+  .nav-progress-bar{height:100%; width:0%; background:var(--lime); box-shadow:0 0 8px var(--lime)}
+  .nav-links a.active{color:var(--lime)}
   .brand{font-family:var(--mono);font-size:.82rem;letter-spacing:.08em;color:var(--text);display:flex;align-items:center;gap:9px}
   .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:pulse 2.4s infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
@@ -202,14 +220,17 @@
 <script>document.documentElement.className="js";</script>
 
 <nav>
-  <!-- EDIT: handle -->
-  <div class="brand"><span class="dot"></span>@yourhandle_sec</div>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#focus">Focus</a>
-    <a href="#work">Work</a>
-    <a href="#contact">Contact</a>
+  <div class="nav-inner">
+    <!-- EDIT: handle -->
+    <div class="brand"><span class="dot"></span>@yourhandle_sec</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#focus">Focus</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
   </div>
+  <div class="nav-progress"><div class="nav-progress-bar"></div></div>
 </nav>
 
 <!-- ============ HERO ============ -->
@@ -531,4 +552,42 @@ if(reduce || !els.length){
     }, { amount: 0.12 });
   });
 }
+</script>
+
+<!-- ============ 2026 UI/UX REFRESH ============ -->
+<script>
+(function(){
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+  // --- floating nav: pill state, scroll progress, scrollspy ---
+  var navEl = document.querySelector('nav');
+  var progressBar = document.querySelector('.nav-progress-bar');
+  var navLinks = document.querySelectorAll('.nav-links a');
+  var navSections = document.querySelectorAll('#hero, .section');
+
+  function onNavScroll(){
+    var y = window.scrollY;
+    navEl.classList.toggle('pill', y > window.innerHeight * 0.6);
+
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? (y / max) * 100 : 0;
+    progressBar.style.width = pct + '%';
+
+    var current = '';
+    navSections.forEach(function(sec){
+      var rect = sec.getBoundingClientRect();
+      if(rect.top <= 120 && rect.bottom > 120) current = sec.id;
+    });
+    navLinks.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+
+  window.addEventListener('scroll', onNavScroll, {passive:true});
+  onNavScroll();
+
+  /* APPEND_POINT */
+})();
 </script>

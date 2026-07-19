@@ -679,6 +679,26 @@ if(reduce || !els.length){
     }
   }
 
+  // --- hero: scroll-linked parallax fade/scale ---
+  if(!reducedMotion){
+    var heroCopy = document.querySelector('.hero-copy');
+    var heroEl = document.getElementById('hero');
+    if(heroCopy && heroEl){
+      var parallaxTicking = false;
+      var updateHeroParallax = function(){
+        var h = heroEl.offsetHeight;
+        var p = Math.min(Math.max(window.scrollY / h, 0), 1);
+        heroCopy.style.opacity = String(1 - p);
+        heroCopy.style.transform = 'scale(' + (1 - p*0.04) + ')';
+        parallaxTicking = false;
+      };
+      window.addEventListener('scroll', function(){
+        if(!parallaxTicking){ requestAnimationFrame(updateHeroParallax); parallaxTicking = true; }
+      }, {passive:true});
+      updateHeroParallax();
+    }
+  }
+
   /* APPEND_POINT */
 })();
 </script>

@@ -43,6 +43,14 @@ export function CustomCursor() {
     }
   }, [reducedMotion, finePointer, dotX, dotY, ringX, ringY])
 
+  useEffect(() => {
+    const active = !reducedMotion && finePointer && hasMoved
+    document.documentElement.classList.toggle('cursor-none', active)
+    return () => {
+      document.documentElement.classList.remove('cursor-none')
+    }
+  }, [reducedMotion, finePointer, hasMoved])
+
   if (reducedMotion || !finePointer || !hasMoved) return null
 
   return (

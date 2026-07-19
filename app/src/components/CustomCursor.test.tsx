@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from 'vitest'
-import { render, waitFor } from '@testing-library/react'
+import { render, waitFor, fireEvent } from '@testing-library/react'
 import { act } from 'react'
 import { CustomCursor } from './CustomCursor'
 import * as motionPrefs from '../lib/motion-prefs'
@@ -34,5 +34,15 @@ describe('CustomCursor', () => {
     vi.spyOn(motionPrefs, 'useMotionPrefs').mockReturnValue({ reducedMotion: false, finePointer: true })
     const { container } = render(<CustomCursor />)
     expect(container).toBeEmptyDOMElement()
+  })
+
+  it('hides the native cursor via a class on <html> once visible, and restores it on unmount', () => {
+    vi.spyOn(motionPrefs, 'useMotionPrefs').mockReturnValue({ reducedMotion: false, finePointer: true })
+    const { unmount } = render(<CustomCursor />)
+    expect(document.documentElement).not.toHaveClass('cursor-none')
+    fireEvent.pointerMove(window, { clientX: 100, clientY: 100 })
+    expect(document.documentElement).toHaveClass('cursor-none')
+    unmount()
+    expect(document.documentElement).not.toHaveClass('cursor-none')
   })
 })

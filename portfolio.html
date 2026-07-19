@@ -228,11 +228,29 @@
   .cursor-hover .cursor-ring{width:52px;height:52px;border-color:var(--lime)}
   html.cursor-ready, html.cursor-ready a, html.cursor-ready button{cursor:none}
   @media (hover:none), (pointer:coarse){.cursor-dot,.cursor-ring{display:none!important}}
+  /* ---------- FILM GRAIN ---------- */
+  .grain{
+    position:fixed; inset:-50%; z-index:1; pointer-events:none;
+    width:200%; height:200%;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity:.05;
+    animation:grain-shift 1s steps(6) infinite;
+  }
+  @keyframes grain-shift{
+    0%{transform:translate(0,0)}
+    20%{transform:translate(-2%,2%)}
+    40%{transform:translate(2%,-1%)}
+    60%{transform:translate(-1%,-2%)}
+    80%{transform:translate(2%,2%)}
+    100%{transform:translate(0,0)}
+  }
+  @media (prefers-reduced-motion: reduce){.grain{animation:none}}
 </style>
 
 <script>document.documentElement.className="js";</script>
 <div class="cursor-dot" aria-hidden="true"></div>
 <div class="cursor-ring" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
 <nav>
   <div class="nav-inner">

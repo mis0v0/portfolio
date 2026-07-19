@@ -198,16 +198,23 @@
   .tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:4px 9px;border-radius:2px}
 
   /* work */
-  .work-list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
-  .work{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:baseline;padding:30px 8px;border-bottom:1px solid var(--line);transition:.25s;cursor:pointer}
-  .work:hover{background:var(--panel);padding-left:18px;padding-right:18px}
+  .work-list{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:16px; border-top:none;
+  }
+  .work{
+    display:flex; flex-direction:column; gap:14px;
+    padding:28px; border-bottom:1px solid var(--line);
+    transition:transform .2s, background .25s, border-color .25s, padding .25s;
+    cursor:pointer;
+  }
+  .work:hover{background:rgba(20,23,34,.65); border-color:rgba(138,110,255,.4); padding:28px}
   .work .idx{font-family:var(--mono);font-size:.7rem;color:var(--violet)}
   .work .body h3{font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,3.2vw,2rem);color:#fff;text-transform:uppercase;letter-spacing:-.01em}
   .work .body .desc{color:var(--muted);margin-top:8px;max-width:60ch;font-size:.96rem}
   .work .body .meta{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
   .work .arrow{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.1em;white-space:nowrap;transition:.25s;opacity:0;transform:translateX(-6px)}
   .work:hover .arrow{opacity:1;transform:translateX(0);color:var(--lime)}
-  @media (max-width:640px){.work{grid-template-columns:auto 1fr}.work .arrow{display:none}}
 
   /* contact */
   #contact{border-top:1px solid var(--line)}
@@ -759,6 +766,21 @@ if(reduce || !els.length){
         var rect = el.getBoundingClientRect();
         el.style.setProperty('--sx', (((e.clientX-rect.left)/rect.width)*100) + '%');
         el.style.setProperty('--sy', (((e.clientY-rect.top)/rect.height)*100) + '%');
+      });
+    });
+  }
+
+  // --- work cards: 3D tilt on hover ---
+  if(!reducedMotion && finePointer){
+    document.querySelectorAll('.work').forEach(function(card){
+      card.addEventListener('pointermove', function(e){
+        var rect = card.getBoundingClientRect();
+        var px = (e.clientX - rect.left)/rect.width - 0.5;
+        var py = (e.clientY - rect.top)/rect.height - 0.5;
+        card.style.transform = 'perspective(800px) rotateX(' + (-py*6) + 'deg) rotateY(' + (px*6) + 'deg)';
+      });
+      card.addEventListener('pointerleave', function(){
+        card.style.transform = '';
       });
     });
   }

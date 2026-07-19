@@ -44,4 +44,11 @@ body {
   .border-accent {
     border-color: var(--color-accent);
   }
+  @keyframes scanline-flicker {
+    0%, 100% { opacity: 0.06; }
+    50% { opacity: 0.03; }
+  }
+  .animate-scanline {
+    animation: scanline-flicker 4s ease-in-out infinite;
+  }
 }

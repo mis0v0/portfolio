@@ -10,7 +10,7 @@ import * as motionPrefs from '../lib/motion-prefs'
 // which reads window.matchMedia. jsdom in this project does not implement
 // matchMedia, so it must be mocked here the same way every other component
 // that consumes useMotionPrefs mocks it (see CustomCursor.test.tsx,
-// ScanlineOverlay.test.tsx) — otherwise render() throws.
+// CustomCursor.test.tsx) — otherwise render() throws.
 beforeEach(() => {
   vi.spyOn(motionPrefs, 'useMotionPrefs').mockReturnValue({ reducedMotion: false, finePointer: true })
 })

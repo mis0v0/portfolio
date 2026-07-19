@@ -65,7 +65,7 @@ export function Hero() {
     <header id="hero" ref={heroRef} className="relative flex min-h-svh items-center overflow-hidden">
       <NetworkBackground />
       <div
-        className="relative z-[3] mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-10 px-6 md:grid-cols-[1.25fr_0.75fr]"
+        className="relative z-[3] mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-[1fr_1.1fr]"
         style={{ opacity: style.opacity, transform: `scale(${style.scale})` }}
       >
         <div>
@@ -90,8 +90,14 @@ export function Hero() {
             </MagneticLink>
           </div>
         </div>
-        <div className="justify-self-center">
-          <img src={mascot} alt="Security mascot holding a laptop" className="w-full max-w-[220px]" />
+        <div className="order-first justify-self-center md:order-none md:justify-self-end">
+          <div className="hud-frame">
+            <img
+              src={mascot}
+              alt="Security mascot holding a laptop"
+              className="w-full max-w-[280px] md:max-w-[380px]"
+            />
+          </div>
         </div>
       </div>
     </header>

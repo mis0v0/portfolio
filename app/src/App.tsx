@@ -1,6 +1,5 @@
 import { Nav } from './components/Nav'
 import { CustomCursor } from './components/CustomCursor'
-import { ScanlineOverlay } from './components/ScanlineOverlay'
 import { Hero } from './sections/Hero'
 import { About } from './sections/About'
 import { Focus } from './sections/Focus'
@@ -10,7 +9,6 @@ import { Contact } from './sections/Contact'
 function App() {
   return (
     <>
-      <ScanlineOverlay />
       <CustomCursor />
       <Nav />
       <Hero />

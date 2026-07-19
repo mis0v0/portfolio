@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -11,7 +11,7 @@
   --color-accent-2: #FF00FF;
   --color-accent-3: #00D4FF;
   --color-destructive: #FF3366;
-  --font-heading: "Orbitron", sans-serif;
+  --font-heading: "JetBrains Mono", monospace;
   --font-mono: "JetBrains Mono", monospace;
 }
 
@@ -36,11 +36,27 @@ body {
   html.cursor-none, html.cursor-none a, html.cursor-none button {
     cursor: none;
   }
-  @keyframes scanline-flicker {
-    0%, 100% { opacity: 0.06; }
-    50% { opacity: 0.03; }
+  .hud-frame {
+    position: relative;
   }
-  .animate-scanline {
-    animation: scanline-flicker 4s ease-in-out infinite;
+  .hud-frame::before, .hud-frame::after {
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--color-accent);
+    pointer-events: none;
+  }
+  .hud-frame::before {
+    top: -10px;
+    left: -10px;
+    border-right: none;
+    border-bottom: none;
+  }
+  .hud-frame::after {
+    bottom: -10px;
+    right: -10px;
+    border-left: none;
+    border-top: none;
   }
 }

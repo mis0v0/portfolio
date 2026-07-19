@@ -4,19 +4,19 @@ import { spotlightPosition } from '../lib/spotlight'
 
 const CARDS = [
   {
-    id: '01',
+    code: 'OFF-SEC',
     title: 'Offensive Security',
     desc: 'Web & binary exploitation, CTF challenges, and thinking like an attacker.',
     span: 'md:col-span-2 md:row-span-2',
   },
   {
-    id: '02',
+    code: 'NET',
     title: 'Network Security',
     desc: 'Protocol analysis, traffic inspection, and understanding how data moves.',
     span: 'md:col-span-2',
   },
-  { id: '03', title: 'Reverse Engineering', desc: 'Pulling apart binaries to understand behavior.', span: '' },
-  { id: '04', title: 'Applied Cryptography', desc: 'How ciphers are used and misused in the real world.', span: '' },
+  { code: 'REV', title: 'Reverse Engineering', desc: 'Pulling apart binaries to understand behavior.', span: '' },
+  { code: 'CRYPTO', title: 'Applied Cryptography', desc: 'How ciphers are used and misused in the real world.', span: '' },
 ]
 
 function FocusCard({ card }: { card: (typeof CARDS)[number] }) {
@@ -42,7 +42,7 @@ function FocusCard({ card }: { card: (typeof CARDS)[number] }) {
         setPos(spotlightPosition(e.clientX, e.clientY, ref.current.getBoundingClientRect()))
       }}
     >
-      <div className="font-mono text-xs text-accent-3">{card.id}</div>
+      <div className="font-mono text-xs tracking-widest text-accent-3">{card.code}</div>
       <h3 className="mt-4 font-heading text-xl font-bold uppercase text-fg">{card.title}</h3>
       <p className="mt-3 text-sm text-fg/60">{card.desc}</p>
     </div>
@@ -56,7 +56,7 @@ export function Focus() {
         <div className="mb-11 font-mono text-xs uppercase tracking-widest text-accent-3">// focus areas</div>
         <div className="grid grid-cols-1 gap-3.5 md:grid-cols-4 md:auto-rows-[190px]">
           {CARDS.map((card) => (
-            <FocusCard key={card.id} card={card} />
+            <FocusCard key={card.code} card={card} />
           ))}
         </div>
       </div>

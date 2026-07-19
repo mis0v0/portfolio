@@ -6,7 +6,7 @@ import * as motionPrefs from '../lib/motion-prefs'
 // Focus (via FocusCard) calls useMotionPrefs, which reads window.matchMedia.
 // jsdom in this project does not implement matchMedia, so it must be mocked
 // here the same way every other component that consumes useMotionPrefs mocks
-// it (see CustomCursor.test.tsx, ScanlineOverlay.test.tsx, Hero.test.tsx) —
+// it (see CustomCursor.test.tsx, Hero.test.tsx) —
 // otherwise render() throws.
 afterEach(() => vi.restoreAllMocks())
 

@@ -7,7 +7,7 @@ import App from './App'
 import * as motionPrefs from './lib/motion-prefs'
 
 // App composes every section, several of which (Hero, Focus, Work, CustomCursor,
-// ScanlineOverlay) consume useMotionPrefs, which reads window.matchMedia. jsdom in
+// CustomCursor) consume useMotionPrefs, which reads window.matchMedia. jsdom in
 // this project does not implement matchMedia, so it must be mocked here the same
 // way every other component test that consumes useMotionPrefs mocks it (see
 // Hero.test.tsx, Focus.test.tsx, Work.test.tsx) — otherwise render() throws.

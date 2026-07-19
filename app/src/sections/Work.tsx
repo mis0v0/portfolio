@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import { useMotionPrefs } from '../lib/motion-prefs'
 import { spotlightPosition } from '../lib/spotlight'
-import { tiltRotation } from '../lib/tilt'
 
 const ITEMS = [
   { idx: '001', title: 'Project Title One', desc: 'One line on what it does and the security problem it solves.' },
@@ -10,10 +9,9 @@ const ITEMS = [
 ]
 
 function WorkCard({ item }: { item: (typeof ITEMS)[number] }) {
-  const { reducedMotion, finePointer } = useMotionPrefs()
+  const { finePointer } = useMotionPrefs()
   const ref = useRef<HTMLAnchorElement>(null)
   const [pos, setPos] = useState({ sx: '50%', sy: '50%' })
-  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 })
 
   return (
     <a
@@ -27,19 +25,12 @@ function WorkCard({ item }: { item: (typeof ITEMS)[number] }) {
           backgroundImage: finePointer
             ? 'radial-gradient(320px circle at var(--sx) var(--sy), rgba(0,255,136,.16), rgba(255,0,255,.08) 40%, transparent 70%)'
             : undefined,
-          transform:
-            !reducedMotion && finePointer
-              ? `perspective(800px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`
-              : undefined,
         } as React.CSSProperties
       }
       onPointerMove={(e) => {
-        if (!ref.current) return
-        const rect = ref.current.getBoundingClientRect()
-        if (finePointer) setPos(spotlightPosition(e.clientX, e.clientY, rect))
-        if (!reducedMotion && finePointer) setTilt(tiltRotation(e.clientX, e.clientY, rect))
+        if (!finePointer || !ref.current) return
+        setPos(spotlightPosition(e.clientX, e.clientY, ref.current.getBoundingClientRect()))
       }}
-      onPointerLeave={() => setTilt({ rotateX: 0, rotateY: 0 })}
     >
       <div className="font-mono text-xs text-accent-3">{item.idx}</div>
       <h3 className="font-heading text-2xl font-bold uppercase text-fg">{item.title}</h3>

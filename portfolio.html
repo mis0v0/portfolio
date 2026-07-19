@@ -273,7 +273,7 @@
     <div class="hero-copy">
     <div class="eyebrow mono">Security Engineer&nbsp;·&nbsp;CS Senior</div>
     <!-- EDIT: your name -->
-    <h1>Your<br><span class="thin">Name</span></h1>
+    <h1 id="heroName">Your<br><span class="thin">Name</span></h1>
     <div class="role">// focus: <b>offensive security</b> · <b>network defense</b> · <b>reverse engineering</b></div>
     <p class="thesis">I break systems to learn how to defend them. Currently a CS senior turning curiosity about <span class="hl">how things fail</span> into a career in security.</p>
     <div class="cta-row">
@@ -645,6 +645,36 @@ if(reduce || !els.length){
       document.querySelectorAll('a, button, .fcard, .work, .stat').forEach(function(el){
         el.addEventListener('pointerenter', function(){ document.documentElement.classList.add('cursor-hover'); });
         el.addEventListener('pointerleave', function(){ document.documentElement.classList.remove('cursor-hover'); });
+      });
+    }
+  }
+
+  // --- hero: kinetic decode headline ---
+  if(!reducedMotion){
+    var heroName = document.getElementById('heroName');
+    if(heroName){
+      var scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%_/\\';
+      var walker = document.createTreeWalker(heroName, NodeFilter.SHOW_TEXT, null);
+      var textNodes = [];
+      var tn;
+      while(tn = walker.nextNode()) textNodes.push(tn);
+      textNodes.forEach(function(node){
+        var final = node.textContent;
+        var len = final.length;
+        if(len === 0) return;
+        var duration = 700;
+        var start = performance.now();
+        (function tick(now){
+          var p = Math.min((now-start)/duration, 1);
+          var revealCount = Math.floor(p*len);
+          var out = '';
+          for(var i=0;i<len;i++){
+            out += (i < revealCount || final[i] === ' ') ? final[i] : scrambleChars[Math.floor(Math.random()*scrambleChars.length)];
+          }
+          node.textContent = out;
+          if(p < 1) requestAnimationFrame(tick);
+          else node.textContent = final;
+        })(performance.now());
       });
     }
   }

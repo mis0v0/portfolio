@@ -608,11 +608,16 @@ if(reduce || !els.length){
     var cursorDot = document.querySelector('.cursor-dot');
     var cursorRing = document.querySelector('.cursor-ring');
     if(cursorDot && cursorRing){
-      document.documentElement.classList.add('cursor-ready');
-      var rx=0, ry=0, tx=0, ty=0;
+      var rx=0, ry=0, tx=0, ty=0, cursorStarted=false;
       window.addEventListener('pointermove', function(e){
         tx = e.clientX; ty = e.clientY;
         cursorDot.style.transform = 'translate('+tx+'px,'+ty+'px) translate(-50%,-50%)';
+        if(!cursorStarted){
+          cursorStarted = true;
+          rx = tx; ry = ty;
+          cursorRing.style.transform = 'translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';
+          document.documentElement.classList.add('cursor-ready');
+        }
       }, {passive:true});
       (function loop(){
         rx += (tx-rx)*0.18; ry += (ty-ry)*0.18;

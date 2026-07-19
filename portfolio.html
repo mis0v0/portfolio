@@ -699,6 +699,21 @@ if(reduce || !els.length){
     }
   }
 
+  // --- hero: magnetic CTA buttons ---
+  if(!reducedMotion && finePointer){
+    document.querySelectorAll('.cta-row .btn').forEach(function(btn){
+      btn.addEventListener('pointermove', function(e){
+        var rect = btn.getBoundingClientRect();
+        var cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
+        var dx = e.clientX - cx, dy = e.clientY - cy;
+        btn.style.transform = 'translate(' + (dx*0.35) + 'px,' + (dy*0.35) + 'px)';
+      });
+      btn.addEventListener('pointerleave', function(){
+        btn.style.transform = 'translate(0,0)';
+      });
+    });
+  }
+
   /* APPEND_POINT */
 })();
 </script>

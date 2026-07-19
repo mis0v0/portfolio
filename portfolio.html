@@ -255,6 +255,20 @@
     100%{transform:translate(0,0)}
   }
   @media (prefers-reduced-motion: reduce){.grain{animation:none}}
+  /* ---------- GLASS SURFACE ---------- */
+  .fcard, .work, .stat{
+    background:rgba(12,14,21,.5);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid var(--line);
+    border-radius:14px;
+    transition:background .25s, border-color .25s, transform .25s;
+  }
+  .fcard:hover, .work:hover{
+    background:rgba(20,23,34,.65);
+    border-color:rgba(138,110,255,.4);
+  }
+  .stat{padding:18px 22px}
 </style>
 
 <script>document.documentElement.className="js";</script>

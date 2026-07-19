@@ -60,18 +60,19 @@ export function NetworkBackground() {
     }
     const ng = new THREE.BufferGeometry()
     ng.setAttribute('position', new THREE.BufferAttribute(npos, 3))
+    const nodeMaterial = new THREE.PointsMaterial({
+      size: 0.13,
+      map: nodeTex,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      opacity: 0.95,
+      sizeAttenuation: true,
+    })
     group.add(
       new THREE.Points(
         ng,
-        new THREE.PointsMaterial({
-          size: 0.13,
-          map: nodeTex,
-          transparent: true,
-          depthWrite: false,
-          blending: THREE.AdditiveBlending,
-          opacity: 0.95,
-          sizeAttenuation: true,
-        })
+        nodeMaterial
       )
     )
 
@@ -88,16 +89,17 @@ export function NetworkBackground() {
     })
     const eg = new THREE.BufferGeometry()
     eg.setAttribute('position', new THREE.BufferAttribute(epos, 3))
+    const lineMaterial = new THREE.LineBasicMaterial({
+      color: 0x00d4ff,
+      transparent: true,
+      opacity: 0.22,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    })
     group.add(
       new THREE.LineSegments(
         eg,
-        new THREE.LineBasicMaterial({
-          color: 0x00d4ff,
-          transparent: true,
-          opacity: 0.22,
-          blending: THREE.AdditiveBlending,
-          depthWrite: false,
-        })
+        lineMaterial
       )
     )
 
@@ -110,17 +112,18 @@ export function NetworkBackground() {
     const ppos = new Float32Array(Math.max(PK, 1) * 3)
     const pg = new THREE.BufferGeometry()
     pg.setAttribute('position', new THREE.BufferAttribute(ppos, 3))
+    const packetMaterial = new THREE.PointsMaterial({
+      size: 0.22,
+      map: accentTex,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      opacity: 0.95,
+      sizeAttenuation: true,
+    })
     const packetPts = new THREE.Points(
       pg,
-      new THREE.PointsMaterial({
-        size: 0.22,
-        map: accentTex,
-        transparent: true,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending,
-        opacity: 0.95,
-        sizeAttenuation: true,
-      })
+      packetMaterial
     )
     if (PK > 0) group.add(packetPts)
 
@@ -178,6 +181,9 @@ export function NetworkBackground() {
       ng.dispose()
       eg.dispose()
       pg.dispose()
+      nodeMaterial.dispose()
+      lineMaterial.dispose()
+      packetMaterial.dispose()
       nodeTex.dispose()
       accentTex.dispose()
       renderer.dispose()

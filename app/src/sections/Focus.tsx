@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { useMotionPrefs } from '../lib/motion-prefs'
 import { spotlightPosition } from '../lib/spotlight'
+import { Reveal } from '../components/Reveal'
 
 const CARDS = [
   {
@@ -27,7 +28,7 @@ function FocusCard({ card }: { card: (typeof CARDS)[number] }) {
   return (
     <div
       ref={ref}
-      className={`hud-panel chamfer relative overflow-hidden p-8 ${card.span}`}
+      className="hud-panel chamfer relative h-full overflow-hidden p-8"
       style={
         {
           '--sx': pos.sx,
@@ -53,10 +54,12 @@ export function Focus() {
   return (
     <section id="focus" className="border-t border-border px-6 py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-11 font-mono text-xs uppercase tracking-widest text-accent-3">// focus areas</div>
+        <Reveal className="mb-11 font-mono text-xs uppercase tracking-widest text-accent-3">// focus areas</Reveal>
         <div className="grid grid-cols-1 gap-3.5 md:grid-cols-4 md:auto-rows-[190px]">
-          {CARDS.map((card) => (
-            <FocusCard key={card.code} card={card} />
+          {CARDS.map((card, i) => (
+            <Reveal key={card.code} delay={i * 0.08} className={card.span}>
+              <FocusCard card={card} />
+            </Reveal>
           ))}
         </div>
       </div>

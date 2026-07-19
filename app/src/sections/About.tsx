@@ -1,3 +1,5 @@
+import { Reveal } from '../components/Reveal'
+
 const STATS = [
   { n: '12+', l: 'CTFs played' },
   { n: '3', l: 'Tools shipped' },
@@ -8,12 +10,14 @@ export function About() {
   return (
     <section id="about" className="border-t border-border px-6 py-24">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 md:grid-cols-2">
-        <h2 className="font-heading text-3xl font-bold uppercase text-fg">
-          Defense starts with
-          <br />
-          understanding the attack.
-        </h2>
-        <div>
+        <Reveal>
+          <h2 className="font-heading text-3xl font-bold uppercase text-fg">
+            Defense starts with
+            <br />
+            understanding the attack.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.1}>
           <p className="text-fg/70">
             I'm a fourth-year computer science student aiming to work in security. My interest sits where{' '}
             <b className="text-fg">systems break</b>: memory bugs, weak protocols, misconfigurations, and the human
@@ -27,7 +31,7 @@ export function About() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   )

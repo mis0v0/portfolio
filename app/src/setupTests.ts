@@ -9,3 +9,18 @@ import '@testing-library/jest-dom'
 window.requestAnimationFrame = (cb: FrameRequestCallback) =>
   window.setTimeout(() => cb(performance.now()), 16)
 window.cancelAnimationFrame = (id: number) => window.clearTimeout(id)
+
+// jsdom has no IntersectionObserver at all (not even a broken native one).
+// motion's `whileInView` needs the constructor to exist or it throws on
+// mount. A no-op stub is enough: we're not testing "did it scroll into
+// view" behavior (jsdom has no real layout), only that these components
+// render without crashing.
+class IntersectionObserverStub {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+  takeRecords() {
+    return []
+  }
+}
+window.IntersectionObserver = IntersectionObserverStub as unknown as typeof IntersectionObserver

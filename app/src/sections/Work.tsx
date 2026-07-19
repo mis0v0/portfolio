@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { useMotionPrefs } from '../lib/motion-prefs'
 import { spotlightPosition } from '../lib/spotlight'
+import { Reveal } from '../components/Reveal'
 
 const ITEMS = [
   { idx: '001', title: 'Project Title One', desc: 'One line on what it does and the security problem it solves.' },
@@ -43,10 +44,12 @@ export function Work() {
   return (
     <section id="work" className="border-t border-border px-6 py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-11 font-mono text-xs uppercase tracking-widest text-accent-3">// selected work</div>
+        <Reveal className="mb-11 font-mono text-xs uppercase tracking-widest text-accent-3">// selected work</Reveal>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4">
-          {ITEMS.map((item) => (
-            <WorkCard key={item.idx} item={item} />
+          {ITEMS.map((item, i) => (
+            <Reveal key={item.idx} delay={i * 0.08}>
+              <WorkCard item={item} />
+            </Reveal>
           ))}
         </div>
       </div>

@@ -92,10 +92,18 @@ export function Hero() {
         </div>
         <div className="order-first justify-self-center md:order-none md:justify-self-end">
           <div className="hud-frame">
+            <div
+              aria-hidden="true"
+              className="animate-mascot-breathe pointer-events-none absolute left-1/2 top-[58%] h-[30%] w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse,rgba(0,255,136,0.35),transparent_70%)] blur-xl motion-reduce:animate-none"
+            />
             <img
               src={mascot}
               alt="Security mascot holding a laptop"
-              className="w-full max-w-[280px] md:max-w-[380px]"
+              className="relative w-full max-w-[280px] md:max-w-[380px]"
+            />
+            <div
+              aria-hidden="true"
+              className="animate-mascot-pulse pointer-events-none absolute left-1/2 top-[90%] aspect-square w-[10%] -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-accent motion-reduce:animate-none"
             />
           </div>
         </div>

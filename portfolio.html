@@ -269,6 +269,15 @@
     border-color:rgba(138,110,255,.4);
   }
   .stat{padding:18px 22px}
+  /* ---------- CURSOR SPOTLIGHT ---------- */
+  .fcard, .work{position:relative; overflow:hidden}
+  .fcard::before, .work::before{
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    opacity:0; transition:opacity .3s;
+    background:radial-gradient(320px circle at var(--sx,50%) var(--sy,50%), rgba(138,110,255,.16), rgba(201,242,78,.08) 40%, transparent 70%);
+  }
+  .fcard:hover::before, .work:hover::before{opacity:1}
+  .fcard > *, .work > *{position:relative; z-index:1}
 </style>
 
 <script>document.documentElement.className="js";</script>
@@ -739,6 +748,17 @@ if(reduce || !els.length){
       btn.addEventListener('pointerleave', function(){
         btn.style.transform = 'translate(0,0)';
         rect = null;
+      });
+    });
+  }
+
+  // --- focus/work cards: cursor-tracking spotlight ---
+  if(finePointer){
+    document.querySelectorAll('.fcard, .work').forEach(function(el){
+      el.addEventListener('pointermove', function(e){
+        var rect = el.getBoundingClientRect();
+        el.style.setProperty('--sx', (((e.clientX-rect.left)/rect.width)*100) + '%');
+        el.style.setProperty('--sy', (((e.clientY-rect.top)/rect.height)*100) + '%');
       });
     });
   }

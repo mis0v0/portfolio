@@ -22,8 +22,8 @@ describe('computeScrollProgress', () => {
 describe('computeActiveSection', () => {
   it('picks the section whose bounds straddle the threshold', () => {
     const sections = [
-      { id: 'about', top: -200, bottom: 100 },
-      { id: 'focus', top: 100, bottom: 500 },
+      { id: 'about', top: -50, bottom: 300 },
+      { id: 'focus', top: 300, bottom: 700 },
     ]
     expect(computeActiveSection(sections)).toBe('about')
   })

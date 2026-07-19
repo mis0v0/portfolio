@@ -16,7 +16,7 @@ export interface SectionRect {
 export function computeActiveSection(sections: SectionRect[], threshold = 120): string {
   let current = ''
   for (const sec of sections) {
-    if (sec.top <= threshold && sec.bottom <= threshold) current = sec.id
+    if (sec.top <= threshold && sec.bottom > threshold) current = sec.id
   }
   return current
 }

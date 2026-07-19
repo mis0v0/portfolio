@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useMotionValue } from 'motion/react'
 import { useMotionPrefs } from '../lib/motion-prefs'
 import { lerp } from '../lib/cursor-lerp'
@@ -11,6 +11,7 @@ export function CustomCursor() {
   const ringY = useMotionValue(0)
   const target = useRef({ x: 0, y: 0 })
   const started = useRef(false)
+  const [hasMoved, setHasMoved] = useState(false)
 
   useEffect(() => {
     if (reducedMotion || !finePointer) return
@@ -23,6 +24,7 @@ export function CustomCursor() {
         started.current = true
         ringX.set(e.clientX)
         ringY.set(e.clientY)
+        setHasMoved(true)
       }
     }
     window.addEventListener('pointermove', onMove, { passive: true })
@@ -41,7 +43,7 @@ export function CustomCursor() {
     }
   }, [reducedMotion, finePointer, dotX, dotY, ringX, ringY])
 
-  if (reducedMotion || !finePointer) return null
+  if (reducedMotion || !finePointer || !hasMoved) return null
 
   return (
     <>

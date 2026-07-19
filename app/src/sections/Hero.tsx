@@ -94,7 +94,7 @@ export function Hero() {
           <div className="hud-frame">
             <div
               aria-hidden="true"
-              className="animate-mascot-breathe pointer-events-none absolute left-[58%] top-[90%] h-[16%] w-[26%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse,rgba(0,255,136,0.35),transparent_70%)] blur-xl motion-reduce:animate-none"
+              className="animate-mascot-breathe pointer-events-none absolute left-[52%] top-[95%] h-[16%] w-[26%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse,rgba(0,255,136,0.35),transparent_70%)] blur-xl motion-reduce:animate-none"
             />
             <img
               src={mascot}
@@ -103,7 +103,7 @@ export function Hero() {
             />
             <div
               aria-hidden="true"
-              className="animate-mascot-pulse pointer-events-none absolute left-[58%] top-[90%] aspect-square w-[10%] -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-accent motion-reduce:animate-none"
+              className="animate-mascot-pulse pointer-events-none absolute left-[52%] top-[95%] aspect-square w-[10%] -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-accent motion-reduce:animate-none"
             />
           </div>
         </div>

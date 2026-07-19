@@ -20,3 +20,18 @@ export function computeActiveSection(sections: SectionRect[], threshold = 120): 
   }
   return current
 }
+
+// The straddle check above can never match the last section on the page:
+// once scrolled as far as the browser allows, there may not be enough
+// remaining scroll room to push that section's top above the threshold
+// line, even though it's the section actually filling the viewport. Treat
+// "within `epsilon` px of the bottom of the document" as its own signal so
+// the nav can force the last link active instead of showing none active.
+export function isScrolledToBottom(
+  scrollY: number,
+  viewportHeight: number,
+  scrollHeight: number,
+  epsilon = 2
+): boolean {
+  return scrollY + viewportHeight >= scrollHeight - epsilon
+}

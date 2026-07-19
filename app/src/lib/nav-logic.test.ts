@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { isPillActive, computeScrollProgress, computeActiveSection } from './nav-logic'
+import { isPillActive, computeScrollProgress, computeActiveSection, isScrolledToBottom } from './nav-logic'
 
 describe('isPillActive', () => {
   it('is false at the top of the page', () => {
@@ -29,5 +29,23 @@ describe('computeActiveSection', () => {
   })
   it('returns an empty string when no section straddles the threshold', () => {
     expect(computeActiveSection([{ id: 'about', top: 500, bottom: 900 }])).toBe('')
+  })
+  it('returns an empty string for a short final section the page cannot scroll past', () => {
+    // The last section on a page is often shorter than a full extra viewport
+    // of scroll room below it — its top can never cross the threshold line,
+    // even once the browser has scrolled as far as it possibly can.
+    expect(computeActiveSection([{ id: 'contact', top: 400, bottom: 900 }])).toBe('')
+  })
+})
+
+describe('isScrolledToBottom', () => {
+  it('is false when there is still room to scroll', () => {
+    expect(isScrolledToBottom(0, 800, 2000)).toBe(false)
+  })
+  it('is true once the viewport bottom reaches the document bottom', () => {
+    expect(isScrolledToBottom(1200, 800, 2000)).toBe(true)
+  })
+  it('tolerates a small epsilon for sub-pixel scroll rounding', () => {
+    expect(isScrolledToBottom(1199, 800, 2000)).toBe(true)
   })
 })

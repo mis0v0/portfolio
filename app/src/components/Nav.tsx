@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { isPillActive, computeScrollProgress, computeActiveSection } from '../lib/nav-logic'
+import { isPillActive, computeScrollProgress, computeActiveSection, isScrolledToBottom } from '../lib/nav-logic'
 
 const LINKS = [
   { href: '#about', label: 'About' },
@@ -20,6 +20,10 @@ export function Nav() {
       setProgress(
         computeScrollProgress(y, document.documentElement.scrollHeight, document.documentElement.clientHeight)
       )
+      if (isScrolledToBottom(y, window.innerHeight, document.documentElement.scrollHeight)) {
+        setActive(LINKS[LINKS.length - 1].href.slice(1))
+        return
+      }
       const rects = LINKS.map((l) => {
         const el = document.querySelector(l.href)
         const rect = el?.getBoundingClientRect()

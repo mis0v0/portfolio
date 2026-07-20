@@ -46,7 +46,7 @@ function MagneticLink({ href, className, children }: { href: string; className: 
 
 export function Hero() {
   const { reducedMotion } = useMotionPrefs()
-  const name = useScrambleText('Name', reducedMotion)
+  const name = useScrambleText('Miso', reducedMotion)
   const heroRef = useRef<HTMLElement>(null)
   const [style, setStyle] = useState({ opacity: 1, scale: 1 })
 
@@ -73,7 +73,7 @@ export function Hero() {
             Security Engineer · CS Senior
           </div>
           <h1 className="font-heading text-5xl font-black uppercase leading-[0.94] text-fg md:text-7xl">
-            Your
+            Kim
             <br />
             <span className="text-accent">{name}</span>
           </h1>
@@ -103,7 +103,7 @@ export function Hero() {
             />
             <div
               aria-hidden="true"
-              className="animate-mascot-pulse pointer-events-none absolute left-[52%] top-[95%] aspect-square w-[10%] -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-accent motion-reduce:animate-none"
+              className="animate-mascot-pulse pointer-events-none absolute left-[55%] top-[94%] aspect-square w-[10%] -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-accent motion-reduce:animate-none"
             />
           </div>
         </div>

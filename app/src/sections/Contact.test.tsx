@@ -16,9 +16,12 @@ describe('Contact', () => {
     expect(screen.getByRole('link', { name: 'Download CV' })).toBeInTheDocument()
   })
 
-  it('renders the social links', () => {
+  it('renders the social links with safe target="_blank" attributes', () => {
     render(<Contact />)
-    expect(screen.getByRole('link', { name: 'GitHub' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'LinkedIn' })).toBeInTheDocument()
+    for (const name of ['GitHub', 'LinkedIn']) {
+      const link = screen.getByRole('link', { name })
+      expect(link).toHaveAttribute('target', '_blank')
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+    }
   })
 })

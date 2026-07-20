@@ -34,6 +34,6 @@ describe('Hero', () => {
   it('renders the headline text (scrambled or resolved) inside the h1', () => {
     render(<Hero />)
     const heading = screen.getByRole('heading', { level: 1 })
-    expect(heading.textContent).toContain('Your')
+    expect(heading.textContent).toContain('Kim')
   })
 })

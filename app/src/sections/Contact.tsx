@@ -22,14 +22,21 @@ export function Contact() {
             </a>
           </div>
           <div className="mt-11 flex flex-wrap gap-8">
-            <a href="#" className="font-mono text-xs uppercase tracking-wider text-fg/60 hover:text-accent">
+            <a
+              href="https://github.com/misosos"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-xs uppercase tracking-wider text-fg/60 hover:text-accent"
+            >
               GitHub
             </a>
-            <a href="#" className="font-mono text-xs uppercase tracking-wider text-fg/60 hover:text-accent">
+            <a
+              href="https://www.linkedin.com/in/미소-김-44aaa2413/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-xs uppercase tracking-wider text-fg/60 hover:text-accent"
+            >
               LinkedIn
-            </a>
-            <a href="#" className="font-mono text-xs uppercase tracking-wider text-fg/60 hover:text-accent">
-              Blog
             </a>
           </div>
         </Reveal>
